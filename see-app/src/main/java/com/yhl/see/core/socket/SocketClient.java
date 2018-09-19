@@ -14,6 +14,7 @@ import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,17 +22,14 @@ import java.util.concurrent.TimeUnit;
 
 public class SocketClient {
 
+    @Value("sockte.ip")
     private String host;
+    @Value("sockte.port")
     private int port;
     private static Channel ch;
     private static final EventLoopGroup group = new NioEventLoopGroup();
     private static volatile Boolean SEND_SWITCH;
     private static int tryTimes;
-
-    public SocketClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
 
     @PostConstruct
     public void init() {
