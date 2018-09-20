@@ -38,6 +38,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         RemoteCommand command = (RemoteCommand) msg;
+        if (command.getType() > 0) {
+            System.out.println("处理请求");
+        } else {
+            System.out.println("处理响应");
+        }
         AspectExecutorFactory.create(command).execute(ctx, command);
     }
 

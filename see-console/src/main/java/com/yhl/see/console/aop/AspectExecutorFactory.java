@@ -16,7 +16,7 @@ public class AspectExecutorFactory {
     public static final int CLASS_TREE_ACTION_CODE = 4;
 
     public static AspectExecutor create(RemoteCommand command) {
-        switch (~command.getType()) {
+        switch (command.getType()) {
             case 1:
                 return new RegisterAspectExecutor();
             case 2:

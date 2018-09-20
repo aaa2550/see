@@ -7,9 +7,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/see-console/pom.xml" />
         <option value="$PROJECT_DIR$/see-server/pom.xml" />
-        <option value="$PROJECT_DIR$/see-core/pom.xml" />
       </list>
     </option>
   </component>

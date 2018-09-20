@@ -3,9 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/see.iml" filepath="$PROJECT_DIR$/see.iml" />
+      <module fileurl="file://$PROJECT_DIR$/see-app/see-app.iml" filepath="$PROJECT_DIR$/see-app/see-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/see-console/see-console.iml" filepath="$PROJECT_DIR$/see-console/see-console.iml" />
       <module fileurl="file://$PROJECT_DIR$/see-core/see-core.iml" filepath="$PROJECT_DIR$/see-core/see-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/see-server/see-server.iml" filepath="$PROJECT_DIR$/see-server/see-server.iml" />
+      <module fileurl="file://C:\Users\sqyc\IdeaProjects\see\see-server\see-server.iml" filepath="C:\Users\sqyc\IdeaProjects\see\see-server\see-server.iml" />
     </modules>
   </component>
 </project>

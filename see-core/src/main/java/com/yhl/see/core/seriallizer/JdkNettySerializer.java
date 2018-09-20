@@ -22,10 +22,14 @@ public class JdkNettySerializer implements NettySerializer {
 
     @Override
     public Object deserialize(byte[] bytes, Class clz) throws NettySerializationException {
+        Object obj = null;
         try (ObjectInputStream serializer = new ObjectInputStream(new ByteArrayInputStream(bytes))) {
-            return serializer.readObject();
+            obj = serializer.readObject();
+        } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             throw new NettySerializationException(e.getMessage());
         }
+        return obj;
     }
 }

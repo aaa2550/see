@@ -3,6 +3,7 @@ package com.yhl.see.core.socket;
 import com.yhl.see.core.command.RemoteCommand;
 import com.yhl.see.core.command.RemoteEnum;
 import com.yhl.see.core.seriallizer.NettySerializationUtils;
+import com.yhl.see.core.util.PushUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -76,8 +77,9 @@ public class SocketClient {
     public void eval(RemoteCommand command) {
         if (SEND_SWITCH) {
             if (ch != null && ch.isOpen()) {
-                byte[] body = NettySerializationUtils.serializer.serialize(command);
-                ch.writeAndFlush(body);
+                /*byte[] body = NettySerializationUtils.serializer.serialize(command);
+                ch.writeAndFlush(body);*/
+                PushUtil.pushMsg(command, ch);
             } else {
                 SEND_SWITCH = false;
                 try {

@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="see" />
+        <module name="see-app" />
         <module name="see-console" />
         <module name="see-core" />
         <module name="see-server" />
@@ -14,9 +15,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="see" target="1.8" />
+      <module name="see-app" target="1.8" />
       <module name="see-console" target="1.8" />
       <module name="see-core" target="1.8" />
-      <module name="see-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
