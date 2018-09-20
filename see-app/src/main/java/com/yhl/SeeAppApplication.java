@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SeeServerApplication {
+public class SeeAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SeeServerApplication.class, args);
+		SpringApplication.run(SeeAppApplication.class, args);
 	}
 }

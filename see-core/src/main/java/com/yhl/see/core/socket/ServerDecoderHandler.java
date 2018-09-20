@@ -1,4 +1,4 @@
-package com.yhl.see.console.socket;
+package com.yhl.see.core.socket;
 
 import com.yhl.see.core.command.RemoteCommand;
 import com.yhl.see.core.seriallizer.NettySerializationUtils;

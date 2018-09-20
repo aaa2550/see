@@ -1,6 +1,7 @@
 package com.yhl.see.core.socket;
 
 import com.yhl.see.core.command.RemoteCommand;
+import com.yhl.see.core.command.RemoteEnum;
 import com.yhl.see.core.seriallizer.NettySerializationUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -15,16 +16,19 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.rmi.Remote;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class SocketClient {
 
-    @Value("sockte.ip")
+    @Value("${sockte.ip}")
     private String host;
-    @Value("sockte.port")
+    @Value("${sockte.port}")
     private int port;
     private static Channel ch;
     private static final EventLoopGroup group = new NioEventLoopGroup();
@@ -36,6 +40,7 @@ public class SocketClient {
         try {
             open();
         } catch (Exception e) {
+            e.printStackTrace();
             temporaryStopSend();
         }
     }
@@ -47,8 +52,8 @@ public class SocketClient {
                     @Override
                     public void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast("http-codec", new HttpClientCodec());
-                        pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
+                        ch.pipeline().addLast(new ClientDecoderHandler(Integer.MAX_VALUE,
+                                0, 4, 0, 0, false));
                         pipeline.addLast(new IdleStateHandler(0,0,25, TimeUnit.SECONDS));
                         pipeline.addLast(new ServerHandler());
                     }
@@ -57,7 +62,7 @@ public class SocketClient {
         ch = b.connect(host, port).sync().channel();
         SEND_SWITCH = true;
         //发起注册
-        //eval(new RequestCommand(RequestCommandEnum.注册));
+        eval(new RemoteCommand(RemoteEnum.注册.getType()));
 
     }
 

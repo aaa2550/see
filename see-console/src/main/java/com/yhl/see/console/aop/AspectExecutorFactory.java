@@ -18,12 +18,14 @@ public class AspectExecutorFactory {
     public static AspectExecutor create(RemoteCommand command) {
         switch (~command.getType()) {
             case 1:
-                return new LogAspectExecutor();
+                return new RegisterAspectExecutor();
             case 2:
-                return new TimeAspectExecutor();
+                return new LogAspectExecutor();
             case 3:
-                return new EnhancerAspectExecutor();
+                return new TimeAspectExecutor();
             case 4:
+                return new EnhancerAspectExecutor();
+            case 5:
                 return new ClassTreeAspectExecutor();
             default:
                 throw new InvalidRequestTypeException(String.format("this request type cannot be true. type is %s", command.getType()));
