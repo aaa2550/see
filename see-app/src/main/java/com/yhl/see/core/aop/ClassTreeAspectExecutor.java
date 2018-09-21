@@ -18,14 +18,11 @@ public class ClassTreeAspectExecutor extends AspectExecutor {
     @Override
     public void execute(ChannelHandlerContext ctx, RemoteCommand command) {
         try {
-            //TODO 执行逻辑z
-            CtClass clazz = CLASS_POOL.getCtClass(command.getClassName());
-            clazz.getDeclaredMethod(command.getMethodName());
             List<FileNode> fileNodes = PackageUtil.getClassName(command.getPackageName());
             RemoteCommand response = new RemoteCommand(~command.getType());
             response.setFileNodes(fileNodes);
             ctx.channel().writeAndFlush(NettySerializationUtils.serializer.serialize(response));
-        } catch (NotFoundException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }

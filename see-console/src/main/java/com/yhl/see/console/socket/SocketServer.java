@@ -52,7 +52,7 @@ public class SocketServer {
                     socketChannel.pipeline().addLast(new ServerDecoderHandler(Integer.MAX_VALUE,
                             0, 4, 0, 0, false));
                     socketChannel.pipeline().addLast(new IdleStateHandler(
-                            0, 0, 160, TimeUnit.SECONDS));
+                            15, 0, 0, TimeUnit.SECONDS));
                     socketChannel.pipeline().addLast(serviceHandler);
                 }
             }).childOption(ChannelOption.SO_KEEPALIVE, true);

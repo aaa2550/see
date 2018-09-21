@@ -17,7 +17,7 @@ public class RegisterAspectExecutor extends AspectExecutor {
     @Override
     public void execute(ChannelHandlerContext ctx, RemoteCommand command) {
         Channel channel = ctx.channel();
-        AppManager.appAddressChannelMap.put(channel.remoteAddress().toString(), channel);
+        AppManager.put(channel.remoteAddress().toString(), channel);
         PushUtil.pushMsg(command.reversal(), channel);
     }
 }

@@ -25,6 +25,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * 链接断开
+     *
      * @param ctx
      * @throws Exception
      */
@@ -34,14 +35,17 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        RemoteCommand command = (RemoteCommand) msg;
-        if (command.getType() > 0) {
-            System.out.println("处理请求");
-        } else {
-            System.out.println("处理响应");
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        try {
+            RemoteCommand command = (RemoteCommand) msg;
+            if (command.getType() > 0) {
+                AspectExecutorFactory.create(command).execute(ctx, command);
+            } else {
+                System.out.println("处理响应");
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
-        AspectExecutorFactory.create(command).execute(ctx, command);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         if (evt instanceof IdleStateEvent) {
             if (((IdleStateEvent) evt).state() == IdleState.ALL_IDLE) {
                 logger.info("channel idle closed, remoteIp = {}", ctx.channel().remoteAddress().toString());
-                ctx.close();
+                ctx.writeAndFlush("biubiu");
             }
         } else {
             super.userEventTriggered(ctx, evt);

@@ -6,6 +6,9 @@ import com.yhl.see.core.command.RemoteCommand;
 import com.yhl.see.core.command.RemoteEnum;
 import com.yhl.see.core.util.PushUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,8 +30,13 @@ public class ClassQueryController {
         Channel appChannel = AppManager.get(address);
         RemoteCommand command = new RemoteCommand(RemoteEnum.查询类树.getType());
         command.setPackageName(clazzPackage);
-        PushUtil.pushMsg(command, appChannel);
-        return null;
+        final ApiResponse[] apiResponse = {null};
+        PushUtil.pushMsg(command, appChannel, future -> {
+            future.await();
+            apiResponse[0] = ApiResponse.success(future.get());
+            System.out.println("asdjhaksldhalsjdh");
+        });
+        return apiResponse[0];
     }
 
 }
