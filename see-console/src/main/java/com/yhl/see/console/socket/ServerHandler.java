@@ -3,6 +3,7 @@ package com.yhl.see.console.socket;
 import com.yhl.see.console.aop.AspectExecutorFactory;
 import com.yhl.see.core.command.RemoteCommand;
 import com.yhl.see.core.command.RemoteEnum;
+import com.yhl.see.core.util.PushUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -39,11 +40,24 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         RemoteCommand command = (RemoteCommand) msg;
         if (command.getType() > 0) {
-            System.out.println("处理请求");
+            request(ctx, command);
         } else {
-            System.out.println("处理响应");
+            response(ctx, command);
         }
+    }
+
+    private void request(ChannelHandlerContext ctx, RemoteCommand command) {
+        System.out.println("处理请求-----------------");
         AspectExecutorFactory.create(command).execute(ctx, command);
+    }
+
+    private void response(ChannelHandlerContext ctx, RemoteCommand command) {
+        System.out.println("处理响应-----------------");
+        release(command);
+    }
+
+    private void release(RemoteCommand command) {
+        PushUtil.release(command.getRequestId(), command);
     }
 
     @Override

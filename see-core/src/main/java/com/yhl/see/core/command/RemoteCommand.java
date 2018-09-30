@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by yanghailong on 2018/9/4.
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class RemoteCommand implements Serializable {
 
+    private String requestId;
     private int type;
     private String className;
     private String methodName;
@@ -21,6 +23,7 @@ public class RemoteCommand implements Serializable {
     private List<FileNode> fileNodes;
 
     public RemoteCommand(int type) {
+        this.requestId = UUID.randomUUID().toString();
         this.type = type;
     }
 

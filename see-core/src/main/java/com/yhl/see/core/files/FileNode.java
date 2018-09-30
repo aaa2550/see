@@ -1,11 +1,13 @@
 package com.yhl.see.core.files;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by yanghailong on 2018/9/6.
  */
 @Data
+@NoArgsConstructor
 public class FileNode {
 
     private FileNodeEnum fileNodeEnum;
